@@ -12,3 +12,9 @@
 5. Clique no botão *Upload Files*
 6. Navegue até o diretório onde você salvou o arquivo e selecione-o
 7. Clique no botão *Import*
+8. Clique no ...(view more actions) da coleção 
+9. Clique em *Run collection*
+10. Clique em *Run API ServeRest*
+11. O Postman fará o cadastro do usuário corretamente
+12. O Postman buscará o usuário cadastrado
+13. o Postman excluirá o usuário cadastrado para poder ser usado novamente
