@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "d9bb19ac-1cfa-4729-af83-dd6ba3eec841",
+		"name": "API ServeRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Cadastar usuario",
+					"item": [
+						{
+							"name": "Criar novo usuario",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.iterationData.get(\"nome_usuario\")\r",
+											"pm.iterationData.get(\"email_usuario\")\r",
+											"pm.iterationData.get(\"senha_usuario\")\r",
+											"pm.iterationData.get(\"adm_usuario\")"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Teste Qa3\",\r\n  \"email\": \"testeqa3@qa.com.br\",\r\n  \"password\": \"teste3\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_base}}usuarios",
+									"host": [
+										"{{url_base}}usuarios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Consultar usuario",
+					"item": [
+						{
+							"name": "Consultar usuario especifico",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_base}}usuarios/{{_id}}",
+									"host": [
+										"{{url_base}}usuarios"
+									],
+									"path": [
+										"{{_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deletar usuario",
+					"item": [
+						{
+							"name": "Deletar usuario",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url_base}}usuarios/{{_id}}",
+									"host": [
+										"{{url_base}}usuarios"
+									],
+									"path": [
+										"{{_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/* Testes para requisições Get*/",
+					"",
+					"if(pm.request.method =='GET'){",
+					"",
+					"    pm.test(\"Status code is 200\", function () {",
+					"        pm.response.to.have.status(200);",
+					"    });",
+					"}",
+					"",
+					"if (pm.request.method =='POST'){",
+					"",
+					"pm.test(\"Successful POST request\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+					"});",
+					"pm.test(\"Body matches string\", function () {",
+					"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");",
+					"});",
+					"",
+					"pm.environment.set(\"_id\",pm.response.json()._id)",
+					"",
+					"}",
+					"if (pm.request.method =='DELETE'){",
+					"",
+					"",
+					"    pm.test(\"Status code is 200\", function () {",
+					"        pm.response.to.have.status(200);",
+					"    });",
+					"",
+					"",
+					"    pm.test(\"Body matches string\", function () {",
+					"        pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");",
+					"    });",
+					"}",
+					""
+				]
+			}
+		}
+	]
+}
